@@ -1,0 +1,140 @@
+openapi: 3.0.3
+info:
+  title: ButterTech Bugs API
+  version: 1.0.0
+  description: API contracts for the ButterTech bug tracking mobile PoC.
+servers:
+  - url: https://api.buttertech.internal/v1
+paths:
+  /auth/login:
+    post:
+      summary: Authenticate a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+  /bugs:
+    get:
+      summary: List bugs
+      responses:
+        '200':
+          description: Bug list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bug'
+    post:
+      summary: Create bug
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBugRequest'
+      responses:
+        '201':
+          description: Created bug
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bug'
+  /bugs/{id}:
+    get:
+      summary: Get bug detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Bug detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bug'
+  /bugs/{id}/status:
+    patch:
+      summary: Update bug status and priority
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBugStatusRequest'
+      responses:
+        '200':
+          description: Updated bug
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bug'
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string }
+        password: { type: string }
+    LoginResponse:
+      type: object
+      properties:
+        token: { type: string }
+        user:
+          $ref: '#/components/schemas/User'
+    User:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        email: { type: string }
+        role: { type: string }
+    CreateBugRequest:
+      type: object
+      required: [title, description, severity, priority, affectedSystem, category]
+      properties:
+        title: { type: string }
+        description: { type: string }
+        severity: { type: string }
+        priority: { type: string }
+        affectedSystem: { type: string }
+        category: { type: string }
+    UpdateBugStatusRequest:
+      type: object
+      required: [status, priority]
+      properties:
+        status: { type: string }
+        priority: { type: string }
+    Bug:
+      type: object
+      properties:
+        id: { type: string }
+        title: { type: string }
+        description: { type: string }
+        severity: { type: string }
+        priority: { type: string }
+        status: { type: string }
+        affectedSystem: { type: string }
+        category: { type: string }
+        reportedBy: { type: string }
+        createdAt: { type: string }
+        updatedAt: { type: string }
