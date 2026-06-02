@@ -25,7 +25,7 @@ ButterTech bug tracker proof of concept built with Jetpack Compose.
 
 - `/app` Android application
 - `/contracts` API contracts in YAML
-- `/docs` technical notes and handoff context
+- `/docs` Justificación técnica del Manejo de Bugs
 - `/video` demo link placeholder
 
 ## Notes
@@ -33,3 +33,4 @@ ButterTech bug tracker proof of concept built with Jetpack Compose.
 - The app currently runs on mock data.
 - `MockBugRepository` is the active repository.
 - The Retrofit layer is kept ready for a future backend swap.
+- You can log in to the system with any email address and any password because it does not use a backend or a database.
