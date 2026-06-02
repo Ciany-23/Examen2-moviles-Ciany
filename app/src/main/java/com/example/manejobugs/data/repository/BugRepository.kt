@@ -23,6 +23,7 @@ interface BugRepository {
         description: String,
         severity: Severity,
         priority: Priority,
+        status: BugStatus,
         affectedSystem: String,
         category: BugCategory
     ): Bug

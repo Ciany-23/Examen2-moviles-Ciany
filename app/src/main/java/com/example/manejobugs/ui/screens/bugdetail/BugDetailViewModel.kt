@@ -27,7 +27,12 @@ class BugDetailViewModel(
     fun toggleStatus() {
         val current = _bug.value ?: return
         viewModelScope.launch {
-            val nextStatus = if (current.status == BugStatus.OPEN) BugStatus.IN_PROGRESS else BugStatus.RESOLVED
+            val nextStatus = when (current.status) {
+                BugStatus.OPEN -> BugStatus.IN_PROGRESS
+                BugStatus.IN_PROGRESS -> BugStatus.RESOLVED
+                BugStatus.RESOLVED -> BugStatus.OPEN
+                BugStatus.CLOSED -> BugStatus.OPEN
+            }
             _bug.value = repository.updateBugStatus(current.id, nextStatus, current.priority)
         }
     }

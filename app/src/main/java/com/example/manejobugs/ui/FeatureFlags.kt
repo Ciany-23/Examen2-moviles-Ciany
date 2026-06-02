@@ -1,5 +1,9 @@
 package com.example.manejobugs.ui
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+
 /**
  * Feature Flags for ButterTech Bug Tracker.
  *
@@ -21,11 +25,11 @@ object FeatureFlags {
      * When true, the "Report Bug" button is shown and the create form is accessible.
      * Set to false to hide the feature during a restricted testing phase.
      */
-    val ENABLE_CREATE_BUG: Boolean = true
+    var ENABLE_CREATE_BUG by mutableStateOf(true)
 
     /**
      * When true, users can change the status and priority of a bug from the detail screen.
      * Set to false to make the detail screen read-only (e.g. for non-admin roles).
      */
-    val ENABLE_STATUS_UPDATE: Boolean = true
+    var ENABLE_STATUS_UPDATE by mutableStateOf(true)
 }

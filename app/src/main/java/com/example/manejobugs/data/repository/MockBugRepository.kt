@@ -46,6 +46,7 @@ class MockBugRepository : BugRepository {
         description: String,
         severity: Severity,
         priority: Priority,
+        status: BugStatus,
         affectedSystem: String,
         category: BugCategory
     ): Bug {
@@ -56,7 +57,7 @@ class MockBugRepository : BugRepository {
             description = description,
             severity = severity,
             priority = priority,
-            status = BugStatus.OPEN,
+            status = status,
             affectedSystem = affectedSystem,
             category = category,
             reportedBy = "Current User",
